@@ -5,8 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestContact {
 
@@ -25,5 +24,18 @@ public class TestContact {
                     () -> assertEquals("testContact@gmail.com", testContact.getEmail())
             );
         }
+
+        @Test
+        public void testIfContactDoesntStoreNullOrEmptyStrings() {
+            // Arrange
+            // Act
+            // Assert
+            assertAll(
+                    () -> assertThrows(IllegalArgumentException.class, () -> new Contact("", "", "")),
+                    () -> assertThrows(IllegalArgumentException.class, () -> new Contact(" ", "  ", "    ")),
+                    () -> assertThrows(IllegalArgumentException.class, () -> new Contact(null, null, null))
+            );
+        }
+        
     }
 }
