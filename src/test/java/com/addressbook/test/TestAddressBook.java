@@ -4,11 +4,14 @@ import com.addressbook.app.AddressBook;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAddressBook {
+
+    private AddressBook testAddressBook;
 
     @Nested
     @DisplayName("Statement 1 Tests - Adding a contact")
@@ -49,6 +52,68 @@ public class TestAddressBook {
                     () -> assertEquals("testContact4@gmail.com", testAddressBook.getContacts().get(3).getEmail())
             );
         }
+    }
+
+    @Nested
+    class Statement2Tests {
+
+        @BeforeEach
+        public void setUp() {
+            testAddressBook = new AddressBook();
+            testAddressBook.addContact("Test contact", "07875647264", "testContact@gmail.com");
+        }
+
+        @Test
+        public void testIfContactArraylistDecrementsBy1() {
+            // Arrange
+            // Act
+            testAddressBook.removeContact("Test contact");
+            // Assert
+            assertEquals(0, testAddressBook.getContacts().size());
+        }
+
+        @Test
+        public void throwErrorIfRemovalInputIsNotValid() {
+            // Arrange
+            String invalidName = "";
+            String invalidName2 = "null";
+            String invalidName3 = " ";
+            String invalidPhoneNumber = "07123456789";
+            String invalidPhoneNumber2 = "null";
+            String invalidPhoneNumber3 = " ";
+            String invalidEmail = "invalidContact@gmail.com";
+            String invalidEmail2 = "null";
+            String invalidEmail3 = " ";
+            // Act
+            // Assert
+            assertAll(
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidName)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidName2)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidName3)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidPhoneNumber)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidPhoneNumber2)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidPhoneNumber3)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidEmail)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidEmail2)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(invalidEmail3))
+            );
+        }
+
+        @Test
+        public void throwErrorIfRemovalInputIsNotAContact() {
+            // Arrange
+            String fakeName = "Invalid Name";
+            String fakePhoneNumber = "07123456789";
+            String fakeEmail = "invalidContact@gmail.com";
+            // Act
+            // Assert
+            assertAll(
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(fakeName)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(fakePhoneNumber)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(fakeEmail))
+                    );
+        }
 
     }
+
 }
