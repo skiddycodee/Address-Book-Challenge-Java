@@ -7,7 +7,9 @@ public class Contact {
     private final String email;
 
     public Contact(String name, String phoneNumber, String email) {
-        contactInputQuarantine(name, phoneNumber, email);
+        contactInputQuarantine(name);
+        contactInputQuarantine(phoneNumber);
+        contactInputQuarantine(email);
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
@@ -25,10 +27,8 @@ public class Contact {
         return this.email;
     }
 
-    private void contactInputQuarantine(String name, String phoneNumber, String email) {
-        if (name == null || name.trim().isEmpty() ||
-                phoneNumber == null || phoneNumber.trim().isEmpty() ||
-                email == null || email.trim().isEmpty()){
+    private void contactInputQuarantine(String input) {
+        if (input == null || input.trim().isEmpty()){
             throw new IllegalArgumentException("Contact information cannot be null or empty");
         }
     }
