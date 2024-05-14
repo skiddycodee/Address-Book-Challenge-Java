@@ -1,5 +1,7 @@
 package com.addressbook.app;
 
+import com.addressbook.app.utils.StringUtils;
+
 import java.util.ArrayList;
 
 public class AddressBook {
@@ -19,38 +21,31 @@ public class AddressBook {
         String attributeType = checkIfNameOrPhoneNumberOrEmail(input);
 
         switch (attributeType) {
-            case "name":
-                removeByName(input);
+            case "email":
+                removeByEmail(input);
                 break;
             case "phoneNumber":
                 removeByPhoneNumber(input);
                 break;
-            case "email":
-                removeByEmail(input);
+            case "name":
+                removeByName(input);
                 break;
             default:
                 throw new IllegalArgumentException("Contact not valid");
         }
     }
 
-    public void removeByName(String name) {
-        for (Contact contact : contacts) {
-            if (contact.getName().equals(name)) {
-                contacts.remove(contact);
-                return;
-            }
+    public String checkIfNameOrPhoneNumberOrEmail(String input) {
+        if (StringUtils.checkIfEmail(input)) {
+            return "email";
         }
-        throw new IllegalArgumentException("Contact name not found");
-    }
-
-    public void removeByPhoneNumber(String phoneNumber) {
-        for (Contact contact : contacts) {
-            if (contact.getPhoneNumber().equals(phoneNumber)) {
-                contacts.remove(contact);
-                return;
-            }
+        if (StringUtils.checkIfPhoneNumber(input)) {
+            return "phoneNumber";
         }
-        throw new IllegalArgumentException("Contact phone number not found");
+        if (StringUtils.checkIfName(input)) {
+            return "name";
+        }
+        return input;
     }
 
     public void removeByEmail(String email) {
@@ -63,45 +58,23 @@ public class AddressBook {
         throw new IllegalArgumentException("Contact email not found");
     }
 
-    /**
-    * TODO: Move the following methods to a utils class
-     * Method checkIfNameOrPhoneNumberOrEmail
-     * Method checkIfName
-     * Method checkIfPhoneNumber
-     * Method checkIfEmail
-     * Method contactInputQuarantine
-    */
-
-    public String checkIfNameOrPhoneNumberOrEmail(String input) {
-        if (checkIfEmail(input)) {
-            return "email";
+    public void removeByPhoneNumber(String phoneNumber) {
+        for (Contact contact : contacts) {
+            if (contact.getPhoneNumber().equals(phoneNumber)) {
+                contacts.remove(contact);
+                return;
+            }
         }
-        if (checkIfPhoneNumber(input)) {
-            return "phoneNumber";
+        throw new IllegalArgumentException("Contact phone number not found");
+    }
+
+    public void removeByName(String name) {
+        for (Contact contact : contacts) {
+            if (contact.getName().equals(name)) {
+                contacts.remove(contact);
+                return;
+            }
         }
-        if (checkIfName(input)) {
-            return "name";
-        }
-        return input;
+        throw new IllegalArgumentException("Contact name not found");
     }
-
-    public boolean checkIfName(String input) {
-        return contactInputQuarantine(input);
-    }
-
-    public boolean checkIfPhoneNumber(String input) {
-        String phoneNumberRegex = "^\\+?(\\d[\\d-. ]+)?(\\([\\d-. ]+\\))?[\\d-. ]+\\d$";
-        return contactInputQuarantine(input) && input.matches(phoneNumberRegex);
-    }
-
-    public boolean checkIfEmail(String input) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        return contactInputQuarantine(input) && input.matches(emailRegex);
-    }
-
-    private boolean contactInputQuarantine(String input) {
-        return input != null && !input.trim().isEmpty();
-    }
-
-
 }
