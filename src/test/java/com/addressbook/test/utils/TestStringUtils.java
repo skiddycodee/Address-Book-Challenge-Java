@@ -15,4 +15,9 @@ public class TestStringUtils {
     public void testCheckIfInputNotEmpty() {
         assertFalse(StringUtils.contactInputQuarantine(""));
     }
+
+    @Test
+    public void testCheckIfInputNotWhitespace() {
+        assertFalse(StringUtils.contactInputQuarantine(" "));
+    }
 }
