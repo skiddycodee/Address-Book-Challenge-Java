@@ -32,13 +32,4 @@ public class Contact {
             throw new IllegalArgumentException("Contact information cannot be null or empty");
         }
     }
-
-    @Override
-    public String toString() {
-        return "{" +
-                name + ", " +
-                phoneNumber + ", " +
-                email +
-                "}";
-    }
 }

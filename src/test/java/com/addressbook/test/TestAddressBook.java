@@ -117,8 +117,8 @@ public class TestAddressBook {
         @Test
         public void ensureMultipleContactsCanBeAdded() {
             // Arrange
-            testAddressBook.addContact("Test contact 2", "07875647265", "testcontact2@gmail.com");
-            testAddressBook.addContact("Test contact 3", "07875647266", "testcontact3@gmail.com");
+            testAddressBook.addContact("Test contact 2", "07875647265", "testContact2@gmail.com");
+            testAddressBook.addContact("Test contact 3", "07875647266", "testContact3@gmail.com");
             // Act
             testAddressBook.removeContact("Test contact");
             testAddressBook.removeContact("Test contact 2");
@@ -144,6 +144,32 @@ public class TestAddressBook {
                     () -> assertEquals("testContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail()),
                     () -> assertEquals("testContact3@gmail.com", testAddressBook.getContacts().get(1).getEmail())
             );
+        }
+
+        @Test
+        public void ensureRemovalByEmail() {
+            // Arrange
+            testAddressBook.addContact("Test contact 2", "07875647265", "testContact2@gmail.com");
+            testAddressBook.addContact("Test contact 3", "07875647266", "testContact3@gmail.com");
+            // Act
+            testAddressBook.removeContact("testContact@gmail.com");
+            testAddressBook.removeContact("testContact2@gmail.com");
+            testAddressBook.removeContact("testContact3@gmail.com");
+            // Assert
+            assertEquals(0, testAddressBook.getContacts().size());
+        }
+
+        @Test
+        public void ensureRemovalByPhoneNumber() {
+            // Arrange
+            testAddressBook.addContact("Test contact 2", "07875647265", "testContact2@gmail.com");
+            testAddressBook.addContact("Test contact 3", "07875647266", "testContact3@gmail.com");
+            // Act
+            testAddressBook.removeContact("07875647264");
+            testAddressBook.removeContact("07875647265");
+            testAddressBook.removeContact("07875647266");
+            // Assert
+            assertEquals(0, testAddressBook.getContacts().size());
         }
 
     }
