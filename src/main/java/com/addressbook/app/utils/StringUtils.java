@@ -16,7 +16,7 @@ public abstract class StringUtils {
         return contactInputQuarantine(input) && input.matches(emailRegex);
     }
 
-    private static boolean contactInputQuarantine(String input) {
+    public static boolean contactInputQuarantine(String input) {
         return input != null && !input.trim().isEmpty();
     }
 

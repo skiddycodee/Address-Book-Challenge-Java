@@ -1,5 +1,14 @@
 package com.addressbook.test.utils;
 
+import com.addressbook.app.utils.StringUtils;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TestStringUtils {
-    // TODO: Write tests for the StringUtils class
+
+    @Test
+    public void testCheckIfInputNotNull() {
+        assertFalse(StringUtils.contactInputQuarantine(null));
+    }
+
 }
