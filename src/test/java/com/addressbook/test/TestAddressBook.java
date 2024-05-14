@@ -114,6 +114,38 @@ public class TestAddressBook {
                     );
         }
 
+        @Test
+        public void ensureMultipleContactsCanBeAdded() {
+            // Arrange
+            testAddressBook.addContact("Test contact 2", "07875647265", "testcontact2@gmail.com");
+            testAddressBook.addContact("Test contact 3", "07875647266", "testcontact3@gmail.com");
+            // Act
+            testAddressBook.removeContact("Test contact");
+            testAddressBook.removeContact("Test contact 2");
+            testAddressBook.removeContact("Test contact 3");
+            // Assert
+            assertEquals(0, testAddressBook.getContacts().size());
+        }
+
+        @Test
+        public void ensureTheCorrectContactGetsRemoved() {
+            // Arrange
+            testAddressBook.addContact("Test contact 2", "07875647263", "testContact2@gmail.com");
+            testAddressBook.addContact("Test contact 3", "07875647266", "testContact3@gmail.com");
+            // Act
+            testAddressBook.removeContact("Test contact 2");
+            // Assert
+            assertAll(
+                    () -> assertEquals(2, testAddressBook.getContacts().size()),
+                    () -> assertEquals("Test contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("Test contact 3", testAddressBook.getContacts().get(1).getName()),
+                    () -> assertEquals("07875647264", testAddressBook.getContacts().getFirst().getPhoneNumber()),
+                    () -> assertEquals("07875647266", testAddressBook.getContacts().get(1).getPhoneNumber()),
+                    () -> assertEquals("testContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail()),
+                    () -> assertEquals("testContact3@gmail.com", testAddressBook.getContacts().get(1).getEmail())
+            );
+        }
+
     }
 
 }
