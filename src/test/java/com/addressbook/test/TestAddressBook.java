@@ -72,6 +72,7 @@ public class TestAddressBook {
             assertEquals(0, testAddressBook.getContacts().size());
         }
 
+        // TODO: Maybe add to a testStringUtils class
         @Test
         public void throwErrorIfRemovalInputIsNotValid() {
             // Arrange
