@@ -11,4 +11,8 @@ public class TestStringUtils {
         assertFalse(StringUtils.contactInputQuarantine(null));
     }
 
+    @Test
+    public void testCheckIfInputNotEmpty() {
+        assertFalse(StringUtils.contactInputQuarantine(""));
+    }
 }
