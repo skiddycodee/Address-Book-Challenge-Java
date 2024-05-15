@@ -274,5 +274,20 @@ public class TestAddressBook {
             assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Test contact 2", "07875647265", "testContact2@gmail.com",
                     "Test contact", "07875647264", "testContact@gmail.com"));
         }
+
+        @Test
+        public void ensureICanAddAContactWithTheSameDetailsAsADeletedContact() {
+            // Arrange
+            // Act
+            testAddressBook.removeContact("Test contact");
+            testAddressBook.addContact("Test contact", "07875647264", "testContact@gmail.com");
+            // Assert
+            assertAll(
+                    () -> assertEquals(1, testAddressBook.getContacts().size()),
+                    () -> assertEquals("Test contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("07875647264", testAddressBook.getContacts().getFirst().getPhoneNumber()),
+                    () -> assertEquals("testContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
+            );
+        }
     }
 }
