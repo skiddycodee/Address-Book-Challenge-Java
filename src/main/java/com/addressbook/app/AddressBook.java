@@ -1,7 +1,6 @@
 package com.addressbook.app;
 
 import com.addressbook.app.utils.StringUtils;
-
 import java.util.ArrayList;
 
 public class AddressBook {
@@ -76,5 +75,18 @@ public class AddressBook {
             }
         }
         throw new IllegalArgumentException("Contact name not found");
+    }
+
+    public void editContact(String currentName, String currentPhoneNumber, String currentEmail, String newName, String newPhoneNumber, String newEmail) {
+        for (Contact contact : contacts) {
+            if (contact.getName().equals(currentName) && contact.getPhoneNumber().equals(currentPhoneNumber) && contact.getEmail().equals(currentEmail)) {
+                contact.setName(newName);
+                contact.setPhoneNumber(newPhoneNumber);
+                contact.setEmail(newEmail);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Contact not found");
+
     }
 }

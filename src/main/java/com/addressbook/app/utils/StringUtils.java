@@ -25,7 +25,10 @@ public abstract class StringUtils {
     }
 
     public static boolean contactInputQuarantine(String input) {
-        return input != null && !input.trim().isEmpty();
+        if (input == null || input.trim().isEmpty()) {
+            throw new IllegalArgumentException("Contact information cannot be null or empty");
+        }
+        return true;
     }
 
 }

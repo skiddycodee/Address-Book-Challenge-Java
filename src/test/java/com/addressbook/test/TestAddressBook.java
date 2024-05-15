@@ -172,6 +172,39 @@ public class TestAddressBook {
             assertEquals(0, testAddressBook.getContacts().size());
         }
 
+        @Test
+        public void ensureContactArrayDoesNotDecrementWhenContactNotFound() {
+            // Arrange
+            // Act
+            // Assert
+            assertAll(
+                    () -> assertEquals(1, testAddressBook.getContacts().size()),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact("Invalid contact"))
+            );
+        }
     }
 
+
+    @Nested
+    class Statement3Tests {
+
+        @BeforeEach
+        public void setUp() {
+            testAddressBook = new AddressBook();
+            testAddressBook.addContact("Test contact", "07875647264", "testContact@gmail.com");
+        }
+
+        @Test
+        public void testIfAContactsDetailsCanBeEdited() {
+            // Arrange
+            // Act
+            testAddressBook.editContact("Test contact", "07875647264", "testContact@gmail.com", "New Contact", "07875647265", "newContact@gmail.com");
+            // Assert
+            assertAll(
+                    () -> assertEquals("New Contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("07875647265", testAddressBook.getContacts().getFirst().getPhoneNumber()),
+                    () -> assertEquals("newContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
+            );
+        }
+    }
 }
