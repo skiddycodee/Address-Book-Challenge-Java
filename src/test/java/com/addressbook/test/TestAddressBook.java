@@ -198,12 +198,52 @@ public class TestAddressBook {
         public void testIfAContactsDetailsCanBeEdited() {
             // Arrange
             // Act
-            testAddressBook.editContact("Test contact", "07875647264", "testContact@gmail.com", "New Contact", "07875647265", "newContact@gmail.com");
+            testAddressBook.editContact("Test contact", "07875647264", "testContact@gmail.com",
+                    "New Contact", "07875647265", "newContact@gmail.com");
             // Assert
             assertAll(
                     () -> assertEquals("New Contact", testAddressBook.getContacts().getFirst().getName()),
                     () -> assertEquals("07875647265", testAddressBook.getContacts().getFirst().getPhoneNumber()),
                     () -> assertEquals("newContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
+            );
+        }
+
+        @Test
+        public void unableToEditContactIfContactNotFound() {
+            // Arrange
+            // Act
+            // Assert
+            assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("unfound Contact", "07123456789", "unfoundEmail@gmail.com",
+                    "New Contact", "07875647265", "newContact@gmail.com"));
+        }
+
+        @Test
+        public void unableToEditContactIfAnyContactDetailsAreInvalid() {
+            // Arrange
+            // Act
+            // Assert
+            assertAll(
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Test contact", "07875647263", "testContact@gmail.com",
+                            "New Contact", "07875647265", "newContact@gmail.com")),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Tesst contact", "07875647264", "testContact@gmail.com",
+                            "New Contact", "07875647265", "newContact@gmail.com")),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Test contact", "07875647264", "tesstContact@gmail.com",
+                            "New Contact", "07875647265", "newContact@gmail.com"))
+            );
+        }
+
+        @Test
+        public void unableToChangeAContactsDetailsToNullOrEmptyOrWhitespace() {
+            // Arrange
+            // Act
+            // Assert
+            assertAll(
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Test contact", "07875647263", "testContact@gmail.com",
+                            null, null, null)),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Tesst contact", "07875647264", "testContact@gmail.com",
+                            "", "", "")),
+                    () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Test contact", "07875647264", "tesstContact@gmail.com",
+                            " ", "     ", "                         "))
             );
         }
     }
