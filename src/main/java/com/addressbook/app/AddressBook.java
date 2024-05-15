@@ -8,11 +8,7 @@ public class AddressBook {
     private final ArrayList<Contact> contacts = new ArrayList<>();
 
     public void addContact(String name, String phoneNumber, String email) {
-        for (Contact contact : this.contacts) {
-            if (contact.getName().equals(name) && contact.getPhoneNumber().equals(phoneNumber) && contact.getEmail().equals(email)) {
-                throw new IllegalArgumentException("Contact already exists");
-            }
-        }
+        checkIfContactExists(name, phoneNumber, email);
         Contact contact = new Contact(name, phoneNumber, email);
         this.contacts.add(contact);
     }
@@ -85,6 +81,7 @@ public class AddressBook {
     public void editContact(String currentName, String currentPhoneNumber, String currentEmail, String newName, String newPhoneNumber, String newEmail) {
         for (Contact contact : contacts) {
             if (contact.getName().equals(currentName) && contact.getPhoneNumber().equals(currentPhoneNumber) && contact.getEmail().equals(currentEmail)) {
+                checkIfContactExists(newName, newPhoneNumber, newEmail);
                 contact.setName(newName);
                 contact.setPhoneNumber(newPhoneNumber);
                 contact.setEmail(newEmail);
@@ -93,5 +90,13 @@ public class AddressBook {
         }
         throw new IllegalArgumentException("Contact not found");
 
+    }
+
+    public void checkIfContactExists(String name, String phoneNumber, String email) {
+        for (Contact contact : contacts) {
+            if (contact.getName().equals(name) && contact.getPhoneNumber().equals(phoneNumber) && contact.getEmail().equals(email)) {
+                throw new IllegalArgumentException("Contact already exists");
+            }
+        }
     }
 }

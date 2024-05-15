@@ -264,5 +264,15 @@ public class TestAddressBook {
             // Assert
             assertThrows(IllegalArgumentException.class, () -> testAddressBook.addContact("Test contact", "07875647264", "testContact@gmail.com"));
         }
+
+        @Test
+        public void ensureICannotEditAContactToBeADuplicate() {
+            // Arrange
+            // Act
+            testAddressBook.addContact("Test contact 2", "07875647265", "testContact2@gmail.com");
+            // Assert
+            assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Test contact 2", "07875647265", "testContact2@gmail.com",
+                    "Test contact", "07875647264", "testContact@gmail.com"));
+        }
     }
 }
