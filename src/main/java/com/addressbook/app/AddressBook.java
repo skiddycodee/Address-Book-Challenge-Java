@@ -8,6 +8,11 @@ public class AddressBook {
     private final ArrayList<Contact> contacts = new ArrayList<>();
 
     public void addContact(String name, String phoneNumber, String email) {
+        for (Contact contact : this.contacts) {
+            if (contact.getName().equals(name) && contact.getPhoneNumber().equals(phoneNumber) && contact.getEmail().equals(email)) {
+                throw new IllegalArgumentException("Contact already exists");
+            }
+        }
         Contact contact = new Contact(name, phoneNumber, email);
         this.contacts.add(contact);
     }

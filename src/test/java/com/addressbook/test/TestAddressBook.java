@@ -247,4 +247,22 @@ public class TestAddressBook {
             );
         }
     }
+
+    @Nested
+    class Statement4Tests {
+
+        @BeforeEach
+        public void setUp() {
+            testAddressBook = new AddressBook();
+            testAddressBook.addContact("Test contact", "07875647264", "testContact@gmail.com");
+        }
+
+        @Test
+        public void ensureICannotAddDuplicateContacts() {
+            // Arrange
+            // Act
+            // Assert
+            assertThrows(IllegalArgumentException.class, () -> testAddressBook.addContact("Test contact", "07875647264", "testContact@gmail.com"));
+        }
+    }
 }
