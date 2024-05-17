@@ -12,13 +12,13 @@ public class Contact {
         StringUtils.contactInputQuarantine(name);
         StringUtils.contactInputQuarantine(phoneNumber);
         StringUtils.contactInputQuarantine(email);
-        this.name = name;
+        this.name = name.toLowerCase();
         this.phoneNumber = phoneNumber;
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getName() {
-        return this.name;
+        return this.name.toLowerCase();
     }
 
     public String getPhoneNumber() {
@@ -26,12 +26,12 @@ public class Contact {
     }
 
     public String getEmail() {
-        return this.email;
+        return this.email.toLowerCase();
     }
 
     public void setName(String name) {
         StringUtils.contactInputQuarantine(name);
-        this.name = name;
+        this.name = name.toLowerCase();
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -41,7 +41,7 @@ public class Contact {
 
     public void setEmail(String email) {
         StringUtils.contactInputQuarantine(email);
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     @Override

@@ -29,9 +29,9 @@ public class TestContact {
             // Act
             // Assert
             assertAll(
-                    () -> assertEquals("Test contact", testContact.getName()),
+                    () -> assertEquals("test contact", testContact.getName()),
                     () -> assertEquals("07875647264", testContact.getPhoneNumber()),
-                    () -> assertEquals("testContact@gmail.com", testContact.getEmail())
+                    () -> assertEquals("testcontact@gmail.com", testContact.getEmail())
             );
         }
 

@@ -39,18 +39,18 @@ public class TestAddressBook {
             // Assert
             assertAll(
                     () -> assertEquals(4, testAddressBook.getContacts().size()),
-                    () -> assertEquals("Test contact", testAddressBook.getContacts().getFirst().getName()),
-                    () -> assertEquals("Test contact 2", testAddressBook.getContacts().get(1).getName()),
-                    () -> assertEquals("Test contact 3", testAddressBook.getContacts().get(2).getName()),
-                    () -> assertEquals("Test contact 4", testAddressBook.getContacts().get(3).getName()),
+                    () -> assertEquals("test contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("test contact 2", testAddressBook.getContacts().get(1).getName()),
+                    () -> assertEquals("test contact 3", testAddressBook.getContacts().get(2).getName()),
+                    () -> assertEquals("test contact 4", testAddressBook.getContacts().get(3).getName()),
                     () -> assertEquals("07875647264", testAddressBook.getContacts().getFirst().getPhoneNumber()),
                     () -> assertEquals("07875647265", testAddressBook.getContacts().get(1).getPhoneNumber()),
                     () -> assertEquals("07875647266", testAddressBook.getContacts().get(2).getPhoneNumber()),
                     () -> assertEquals("07875647267", testAddressBook.getContacts().get(3).getPhoneNumber()),
-                    () -> assertEquals("testContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail()),
-                    () -> assertEquals("testContact2@gmail.com", testAddressBook.getContacts().get(1).getEmail()),
-                    () -> assertEquals("testContact3@gmail.com", testAddressBook.getContacts().get(2).getEmail()),
-                    () -> assertEquals("testContact4@gmail.com", testAddressBook.getContacts().get(3).getEmail())
+                    () -> assertEquals("testcontact@gmail.com", testAddressBook.getContacts().getFirst().getEmail()),
+                    () -> assertEquals("testcontact2@gmail.com", testAddressBook.getContacts().get(1).getEmail()),
+                    () -> assertEquals("testcontact3@gmail.com", testAddressBook.getContacts().get(2).getEmail()),
+                    () -> assertEquals("testcontact4@gmail.com", testAddressBook.getContacts().get(3).getEmail())
             );
         }
 
@@ -65,7 +65,7 @@ public class TestAddressBook {
             // Assert
             assertAll(
                     () -> assertEquals(1, testAddressBook.getContacts().size()),
-                    () -> assertEquals("Test @Contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("test @contact", testAddressBook.getContacts().getFirst().getName()),
                     () -> assertEquals("+44 7875-647-264", testAddressBook.getContacts().getFirst().getPhoneNumber()),
                     () -> assertEquals("test.contact+1@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
             );
@@ -175,12 +175,12 @@ public class TestAddressBook {
             // Assert
             assertAll(
                     () -> assertEquals(2, testAddressBook.getContacts().size()),
-                    () -> assertEquals("Test contact", testAddressBook.getContacts().getFirst().getName()),
-                    () -> assertEquals("Test contact 3", testAddressBook.getContacts().get(1).getName()),
+                    () -> assertEquals("test contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("test contact 3", testAddressBook.getContacts().get(1).getName()),
                     () -> assertEquals("07875647264", testAddressBook.getContacts().getFirst().getPhoneNumber()),
                     () -> assertEquals("07875647266", testAddressBook.getContacts().get(1).getPhoneNumber()),
-                    () -> assertEquals("testContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail()),
-                    () -> assertEquals("testContact3@gmail.com", testAddressBook.getContacts().get(1).getEmail())
+                    () -> assertEquals("testcontact@gmail.com", testAddressBook.getContacts().getFirst().getEmail()),
+                    () -> assertEquals("testcontact3@gmail.com", testAddressBook.getContacts().get(1).getEmail())
             );
         }
 
@@ -240,7 +240,7 @@ public class TestAddressBook {
             // Act
             testAddressBook.removeContact("cASE sENSITIVE");
             // Assert
-            assertEquals(1, testAddressBook.getContacts().size());  // Only "Test contact" should remain
+            assertEquals(1, testAddressBook.getContacts().size());
         }
 
     }
@@ -263,9 +263,9 @@ public class TestAddressBook {
                     "New Contact", "07875647265", "newContact@gmail.com");
             // Assert
             assertAll(
-                    () -> assertEquals("New Contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("new contact", testAddressBook.getContacts().getFirst().getName()),
                     () -> assertEquals("07875647265", testAddressBook.getContacts().getFirst().getPhoneNumber()),
-                    () -> assertEquals("newContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
+                    () -> assertEquals("newcontact@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
             );
         }
 
@@ -307,6 +307,34 @@ public class TestAddressBook {
                             " ", "     ", "                         "))
             );
         }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testEditingContactWithPartialMatch() {
+            // Arrange
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class, () -> testAddressBook.editContact("Test ", "07875647264", "testContact@gmail.com",
+                    "New Contact", "07875647265", "newContact@gmail.com"));
+        }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testEditingContactWithMinimalChange() {
+            // Arrange
+            // Act
+            testAddressBook.editContact("Test contact", "07875647264", "testContact@gmail.com",
+                    "Test contact", "07875647264", "testContactUpdated@gmail.com");
+            // Assert
+            assertAll(
+                    () -> assertEquals("test contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("07875647264", testAddressBook.getContacts().getFirst().getPhoneNumber()),
+                    () -> assertEquals("testcontactupdated@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
+            );
+        }
+
+
     }
 
     @Nested
@@ -345,9 +373,9 @@ public class TestAddressBook {
             // Assert
             assertAll(
                     () -> assertEquals(1, testAddressBook.getContacts().size()),
-                    () -> assertEquals("Test contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("test contact", testAddressBook.getContacts().getFirst().getName()),
                     () -> assertEquals("07875647264", testAddressBook.getContacts().getFirst().getPhoneNumber()),
-                    () -> assertEquals("testContact@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
+                    () -> assertEquals("testcontact@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
             );
         }
     }
@@ -380,10 +408,10 @@ public class TestAddressBook {
             testAddressBook.printContacts();
             // Assert
             assertAll(
-                    () -> assertEquals("Name: Test contact, Phone Number: 07875647264, Email: testContact@gmail.com", testAddressBook.getContacts().getFirst().toString()),
-                    () -> assertEquals("Name: Test contact 2, Phone Number: 07875647265, Email: testContact2@gmail.com", testAddressBook.getContacts().get(1).toString()),
-                    () -> assertEquals("Name: Test contact 3, Phone Number: 07875647266, Email: testContact3@gmail.com", testAddressBook.getContacts().get(2).toString()),
-                    () -> assertEquals("Name: Test contact 4, Phone Number: 07875647267, Email: testContact4@gmail.com", testAddressBook.getContacts().get(3).toString())
+                    () -> assertEquals("Name: test contact, Phone Number: 07875647264, Email: testcontact@gmail.com", testAddressBook.getContacts().getFirst().toString()),
+                    () -> assertEquals("Name: test contact 2, Phone Number: 07875647265, Email: testcontact2@gmail.com", testAddressBook.getContacts().get(1).toString()),
+                    () -> assertEquals("Name: test contact 3, Phone Number: 07875647266, Email: testcontact3@gmail.com", testAddressBook.getContacts().get(2).toString()),
+                    () -> assertEquals("Name: test contact 4, Phone Number: 07875647267, Email: testcontact4@gmail.com", testAddressBook.getContacts().get(3).toString())
             );
         }
     }
