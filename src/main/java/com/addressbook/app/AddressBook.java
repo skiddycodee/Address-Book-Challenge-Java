@@ -99,4 +99,10 @@ public class AddressBook {
             }
         }
     }
+
+    public void printContacts() {
+        for (Contact contact : contacts) {
+            System.out.println(contact.getName() + " " + contact.getPhoneNumber() + " " + contact.getEmail());
+        }
+    }
 }

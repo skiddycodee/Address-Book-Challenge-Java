@@ -111,7 +111,7 @@ public class TestAddressBook {
                     () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(fakeName)),
                     () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(fakePhoneNumber)),
                     () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact(fakeEmail))
-                    );
+            );
         }
 
         @Test
@@ -186,7 +186,7 @@ public class TestAddressBook {
 
 
     @Nested
-    class Statement3Tests {
+    class Statement4Tests {
 
         @BeforeEach
         public void setUp() {
@@ -249,7 +249,7 @@ public class TestAddressBook {
     }
 
     @Nested
-    class Statement4Tests {
+    class Statement5Tests {
 
         @BeforeEach
         public void setUp() {
@@ -290,4 +290,28 @@ public class TestAddressBook {
             );
         }
     }
+
+    @Nested
+    class Statement6Tests {
+
+        @BeforeEach
+        public void setUp() {
+            testAddressBook = new AddressBook();
+            testAddressBook.addContact("Test contact", "07875647264", "testContact@gmail.com");
+            testAddressBook.addContact("Test contact 2", "07875647265", "testContact2@gmail.com");
+            testAddressBook.addContact("Test contact 3", "07875647266", "testContact3@gmail.com");
+            testAddressBook.addContact("Test contact 4", "07875647267", "testContact4@gmail.com");
+        }
+
+        @Test
+        public void contactsPrintedToConsoleMatchContactCount() {
+            // Arrange
+            // Act
+            testAddressBook.printContacts();
+            // Assert
+            assertEquals(4, testAddressBook.getContacts().size());
+        }
+    }
 }
+
+
