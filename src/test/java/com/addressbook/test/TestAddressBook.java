@@ -53,6 +53,43 @@ public class TestAddressBook {
                     () -> assertEquals("testContact4@gmail.com", testAddressBook.getContacts().get(3).getEmail())
             );
         }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testAddingContactWithSpecialCharacters() {
+            // Arrange
+            AddressBook testAddressBook = new AddressBook();
+            // Act
+            testAddressBook.addContact("Test @Contact", "+44 7875-647-264", "test.contact+1@gmail.com");
+            // Assert
+            assertAll(
+                    () -> assertEquals(1, testAddressBook.getContacts().size()),
+                    () -> assertEquals("Test @Contact", testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals("+44 7875-647-264", testAddressBook.getContacts().getFirst().getPhoneNumber()),
+                    () -> assertEquals("test.contact+1@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
+            );
+        }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testAddingContactWithVeryLongDetails() {
+            // Arrange
+            AddressBook testAddressBook = new AddressBook();
+            String longName = "a".repeat(256);
+            String longPhoneNumber = "0".repeat(20);
+            String longEmail = "a".repeat(100) + "@gmail.com";
+            // Act
+            testAddressBook.addContact(longName, longPhoneNumber, longEmail);
+            // Assert
+            assertAll(
+                    () -> assertEquals(1, testAddressBook.getContacts().size()),
+                    () -> assertEquals(longName, testAddressBook.getContacts().getFirst().getName()),
+                    () -> assertEquals(longPhoneNumber, testAddressBook.getContacts().getFirst().getPhoneNumber()),
+                    () -> assertEquals(longEmail, testAddressBook.getContacts().getFirst().getEmail())
+            );
+        }
     }
 
     @Nested
@@ -183,6 +220,29 @@ public class TestAddressBook {
                     () -> assertThrows(IllegalArgumentException.class, () -> testAddressBook.removeContact("Invalid contact"))
             );
         }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testRemovingContactFromEmptyAddressBook() {
+            // Arrange
+            AddressBook emptyAddressBook = new AddressBook();
+            // Act & Assert
+            assertThrows(IllegalArgumentException.class, () -> emptyAddressBook.removeContact("Nonexistent Contact"));
+        }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testRemovingContactWithMixedCaseInput() {
+            // Arrange
+            testAddressBook.addContact("Case Sensitive", "07875647268", "casesensitive@gmail.com");
+            // Act
+            testAddressBook.removeContact("cASE sENSITIVE");
+            // Assert
+            assertEquals(1, testAddressBook.getContacts().size());  // Only "Test contact" should remain
+        }
+
     }
 
 

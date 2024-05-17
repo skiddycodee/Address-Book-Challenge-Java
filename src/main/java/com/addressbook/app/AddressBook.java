@@ -2,12 +2,16 @@ package com.addressbook.app;
 
 import com.addressbook.app.utils.StringUtils;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class AddressBook {
 
     private final ArrayList<Contact> contacts = new ArrayList<>();
 
     public void addContact(String name, String phoneNumber, String email) {
+        name = name.toLowerCase();
+        phoneNumber = phoneNumber.toLowerCase();
+        email = email.toLowerCase();
         checkIfContactExists(name, phoneNumber, email);
         Contact contact = new Contact(name, phoneNumber, email);
         this.contacts.add(contact);
@@ -18,6 +22,7 @@ public class AddressBook {
     }
 
     public void removeContact(String input) {
+        input = input.toLowerCase();
         String attributeType = checkIfNameOrPhoneNumberOrEmail(input);
 
         switch (attributeType) {
@@ -79,6 +84,13 @@ public class AddressBook {
     }
 
     public void editContact(String currentName, String currentPhoneNumber, String currentEmail, String newName, String newPhoneNumber, String newEmail) {
+        currentName = currentName.toLowerCase();
+        currentPhoneNumber = currentPhoneNumber.toLowerCase();
+        currentEmail = currentEmail.toLowerCase();
+        newName = newName.toLowerCase();
+        newPhoneNumber = newPhoneNumber.toLowerCase();
+        newEmail = newEmail.toLowerCase();
+
         for (Contact contact : contacts) {
             if (contact.getName().equals(currentName) && contact.getPhoneNumber().equals(currentPhoneNumber) && contact.getEmail().equals(currentEmail)) {
                 checkIfContactExists(newName, newPhoneNumber, newEmail);
