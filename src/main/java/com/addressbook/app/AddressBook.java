@@ -45,7 +45,7 @@ public class AddressBook {
         if (StringUtils.checkIfName(input)) {
             return "name";
         }
-        return input;
+        throw new IllegalArgumentException("Not of type email, phone number or name")
     }
 
     public void removeByEmail(String email) {
