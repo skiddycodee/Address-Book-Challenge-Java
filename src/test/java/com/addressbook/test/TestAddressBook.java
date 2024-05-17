@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestAddressBook {
@@ -310,6 +311,20 @@ public class TestAddressBook {
             testAddressBook.printContacts();
             // Assert
             assertEquals(4, testAddressBook.getContacts().size());
+        }
+
+        @Test
+        public void printedContactInfoIsCorrect() {
+            // Arrange
+            // Act
+            testAddressBook.printContacts();
+            // Assert
+            assertAll(
+                    () -> assertEquals("Name: Test contact, Phone Number: 07875647264, Email: testContact@gmail.com", testAddressBook.getContacts().getFirst().toString()),
+                    () -> assertEquals("Name: Test contact 2, Phone Number: 07875647265, Email: testContact2@gmail.com", testAddressBook.getContacts().get(1).toString()),
+                    () -> assertEquals("Name: Test contact 3, Phone Number: 07875647266, Email: testContact3@gmail.com", testAddressBook.getContacts().get(2).toString()),
+                    () -> assertEquals("Name: Test contact 4, Phone Number: 07875647267, Email: testContact4@gmail.com", testAddressBook.getContacts().get(3).toString())
+            );
         }
     }
 }

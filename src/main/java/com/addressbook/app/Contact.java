@@ -44,4 +44,9 @@ public class Contact {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + this.name + ", Phone Number: " + this.phoneNumber + ", Email: " + this.email;
+    }
+
 }

@@ -102,7 +102,7 @@ public class AddressBook {
 
     public void printContacts() {
         for (Contact contact : contacts) {
-            System.out.println(contact.getName() + " " + contact.getPhoneNumber() + " " + contact.getEmail());
+            System.out.println("Name: " + contact.getName() + ", Phone Number: " + contact.getPhoneNumber() + ", Email: " + contact.getEmail());
         }
     }
 }
