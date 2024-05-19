@@ -9,6 +9,9 @@ public class AddressBook {
 
     public void addContact(String name, String phoneNumber, String email) {
         checkIfContactExists(name.toLowerCase(), phoneNumber, email.toLowerCase());
+        if (!StringUtils.checkIfName(name) || !StringUtils.checkIfPhoneNumber(phoneNumber) || !StringUtils.checkIfEmail(email)) {
+            throw new IllegalArgumentException("Contact information not valid");
+        }
         Contact contact = new Contact(name.toLowerCase(), phoneNumber, email.toLowerCase());
         this.contacts.add(contact);
     }
@@ -101,6 +104,10 @@ public class AddressBook {
     }
 
     public void printContacts() {
+        if (contacts.isEmpty()) {
+            System.out.println("Address book is empty");
+            return;
+        }
         for (Contact contact : contacts) {
             System.out.println("Name: " + contact.getName() + ", Phone Number: " + contact.getPhoneNumber() + ", Email: " + contact.getEmail());
         }
