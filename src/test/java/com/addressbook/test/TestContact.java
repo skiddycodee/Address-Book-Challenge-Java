@@ -46,5 +46,40 @@ public class TestContact {
                     () -> assertThrows(IllegalArgumentException.class, () -> new Contact(null, null, null))
             );
         }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testContactWithSpecialCharacters() {
+            // Arrange & Act
+            Contact specialContact = new Contact("Test@Contact", "+44-7875-647-264", "test.contact+1@gmail.com");
+
+            // Assert
+            assertAll(
+                    () -> assertEquals("test@contact", specialContact.getName()),
+                    () -> assertEquals("+44-7875-647-264", specialContact.getPhoneNumber()),
+                    () -> assertEquals("test.contact+1@gmail.com", specialContact.getEmail())
+            );
+        }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testContactWithVeryLongDetails() {
+            // Arrange
+            String longName = "a".repeat(256);
+            String longPhoneNumber = "0".repeat(20);
+            String longEmail = "a".repeat(100) + "@gmail.com";
+
+            // Act
+            Contact longContact = new Contact(longName, longPhoneNumber, longEmail);
+
+            // Assert
+            assertAll(
+                    () -> assertEquals(longName.toLowerCase(), longContact.getName()),
+                    () -> assertEquals(longPhoneNumber, longContact.getPhoneNumber()),
+                    () -> assertEquals(longEmail.toLowerCase(), longContact.getEmail())
+            );
+        }
     }
 }
