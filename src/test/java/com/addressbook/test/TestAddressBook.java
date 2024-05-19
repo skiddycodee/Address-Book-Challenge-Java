@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 public class TestAddressBook {
 
@@ -378,6 +379,30 @@ public class TestAddressBook {
                     () -> assertEquals("testcontact@gmail.com", testAddressBook.getContacts().getFirst().getEmail())
             );
         }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testAddingContactWithSameNameDifferentDetails() {
+            // Arrange
+            // Act
+            testAddressBook.addContact("Test contact", "07875647269", "testContact2@gmail.com");
+            // Assert
+            assertEquals(2, testAddressBook.getContacts().size());
+        }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testEditingContactWithSameNameDifferentDetails() {
+            // Arrange
+            testAddressBook.addContact("Test contact 3", "07875647269", "testContact3@gmail.com");
+            // Act
+            testAddressBook.editContact("Test contact 3", "07875647269", "testContact3@gmail.com",
+                    "Test contact", "07875647270", "testContact4@gmail.com");
+            // Assert
+            assertEquals(2, testAddressBook.getContacts().size());
+        }
     }
 
     @Nested
@@ -414,6 +439,30 @@ public class TestAddressBook {
                     () -> assertEquals("Name: test contact 4, Phone Number: 07875647267, Email: testcontact4@gmail.com", testAddressBook.getContacts().get(3).toString())
             );
         }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testPrintingEmptyAddressBook() {
+            // Arrange
+            AddressBook emptyAddressBook = new AddressBook();
+            // Act & Assert
+            assertDoesNotThrow(() -> emptyAddressBook.printContacts());
+        }
+
+        //? AI generated edge/corner case test
+        //? Test prompted with current code and tests and asked for 2 additional edge/corner case tests
+        @Test
+        public void testPrintingContactWithVeryLongDetails() {
+            // Arrange
+            String longName = "a".repeat(256);
+            String longPhoneNumber = "0".repeat(20);
+            String longEmail = "a".repeat(100) + "@gmail.com";
+            testAddressBook.addContact(longName, longPhoneNumber, longEmail);
+            // Act & Assert
+            assertDoesNotThrow(() -> testAddressBook.printContacts());
+        }
+
     }
 }
 
