@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.addressbook.app"},{"l":"com.addressbook.app.utils"},{"l":"com.addressbook.application"},{"l":"com.addressbook.test"},{"l":"com.addressbook.test.utils"}];updateSearchResults();
